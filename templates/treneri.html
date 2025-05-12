@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Zoznam trénerov</title>
+</head>
+<body>
+    <h2>Zoznam trénerov a kurzov:</h2>
+    {% for trener in treneri %}
+        <p>{{ trener[1] }} - {{ trener[2] }}</p>
+    {% endfor %}
+    <br>
+    <a href="/"><button type="button">Späť</button></a>
+</body>
+</html>

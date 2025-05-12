@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Zoznam kurzov</title>
+</head>
+<body>
+    <h2>Zoznam kurzov:</h2>
+    {% for kurz in kurzy %}
+        <p>{{ kurz }}</p>
+    {% endfor %}
+    <a href="/">Späť</a>
+</body>
+</html>
