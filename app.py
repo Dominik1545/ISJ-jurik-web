@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request,  render_template
 import sqlite3
 import hashlib
 
@@ -41,11 +41,7 @@ def zobraz_kurzy():
     kurzy = cursor.fetchall()
     conn.close()
 
-    vystup = "<h2>Zoznam kurzov:</h2>"
-    for kurz in kurzy:
-        vystup += f"<p>{kurz}</p>"
-    vystup += '<br><a href="/"><button type="button">Späť</button></a>'
-    return vystup
+    return render_template("kurzy.html", kurzy=kurzy)
 
 @app.route('/treneri')
 def zobraz_trenerov():
@@ -60,11 +56,7 @@ def zobraz_trenerov():
     treneri = cursor.fetchall()
     conn.close()
 
-    vystup = "<h2>Zoznam trénerov a kurzov:</h2>"
-    for trener in treneri:
-        vystup += f"<p>{trener[1]} - {trener[2]}</p>"
-    vystup += '<br><a href="/"><button type="button">Späť</button></a>'
-    return vystup
+    return render_template("treneri.html", treneri=treneri)
 
 @app.route('/miesta')
 def zobraz_miesta():
@@ -179,10 +171,3 @@ def pridaj_kurz():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
-
-
-
