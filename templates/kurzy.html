@@ -8,7 +8,7 @@
 <body>
     <h2>Zoznam kurzov:</h2>
     {% for kurz in kurzy %}
-        <p>{{ kurz }}</p>
+        <p>{{ kurz.Nazov_kurzu  }} (ID: {{ kurz.ID_kurzu }})</p>
     {% endfor %}
     <a href="/">Späť</a>
 </body>
