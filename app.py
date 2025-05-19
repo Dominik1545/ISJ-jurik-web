@@ -16,7 +16,19 @@ def pripoj_db():
     conn = sqlite3.connect("kurzy.db")
     return conn
 
-# Afinná šifra (A=5, B=8)
+
+class Kurz(db.Model):
+    tablename = "Kurzy"
+
+    ID_kurzu = db.Column(db.Integer, primary_key=True)
+    Nazov_kurzu = db.Column(db.String, nullable=False)
+    Typ_sportu = db.Column(db.String)
+    Max_pocet_ucastnikov = db.Column(db.Integer)
+    ID_trenera = db.Column(db.Integer)
+
+    def repr(self):
+        return f"<Kurz {self.Nazov_kurzu}>"
+
 def afinne_sifrovanie(text):
     vysledok = ''
     for znak in text:
