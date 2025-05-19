@@ -2,6 +2,7 @@ from flask import Flask, request,  render_template
 from flask_sqlalchemy import SQLAlchemy
 import sqlite3
 import hashlib
+import os
 
 app = Flask(__name__, instance_relative_config=True)
 
