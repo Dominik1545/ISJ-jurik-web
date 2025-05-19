@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import sqlite3
 import hashlib
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
 
 def pripoj_db():
     conn = sqlite3.connect("kurzy.db")
