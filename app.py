@@ -18,7 +18,7 @@ def pripoj_db():
 
 
 class Kurz(db.Model):
-    tablename = "Kurzy"
+    _tablename_ = "Kurzy"
 
     ID_kurzu = db.Column(db.Integer, primary_key=True)
     Nazov_kurzu = db.Column(db.String, nullable=False)
@@ -55,13 +55,9 @@ def index():
 
 @app.route('/kurzy')
 def zobraz_kurzy():
-    conn = pripoj_db()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Kurzy")
-    kurzy = cursor.fetchall()
-    conn.close()
+    kurzy = Kurz.query.all()
+    return render_template ( "kurzy.html" , kurzy=kurzy)
 
-    return render_template("kurzy.html", kurzy=kurzy)
 
 @app.route('/treneri')
 def zobraz_trenerov():
