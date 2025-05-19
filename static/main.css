@@ -58,3 +58,16 @@ button {
 button:hover {
     background-color: #155cb0;
 }
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.menu-container a button {
+    width: 100%;
+}
