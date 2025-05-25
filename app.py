@@ -5,16 +5,15 @@ import os
 
 app = Flask(__name__, instance_relative_config=True)
 
-# Uistíme sa, že adresár 'instance' existuje
 os.makedirs(app.instance_path, exist_ok=True)
 
-# Nastavenie databázy
+
 db_path = os.path.join(app.instance_path, "kurzy.db")
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}".replace("\\", "/")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-# MODELY
+
 class Trener(db.Model):
     __tablename__ = "Treneri"
 
@@ -46,7 +45,6 @@ class Miesto(db.Model):
     Nazov_miesta = db.Column(db.String, nullable=False)
 
 
-# Šifrovanie pre názov a typ športu
 def afinne_sifrovanie(text):
     vysledok = ''
     for znak in text:
