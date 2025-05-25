@@ -56,11 +56,11 @@ def afinne_sifrovanie(text):
             vysledok += znak
     return vysledok
 
-# ROUTY
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template('index.html')
+
 
 
 @app.route('/kurzy')
@@ -71,33 +71,20 @@ def zobraz_kurzy():
 @app.route('/treneri')
 def zobraz_trenerov():
     treneri = Trener.query.all()
-    vystup = []
-    for trener in treneri:
-        cele_meno = f"{trener.Meno} {trener.Priezvisko}"
-        if trener.kurzy:
-            for kurz in trener.kurzy:
-                vystup.append((trener.ID_trenera, cele_meno, kurz.Nazov_kurzu))
-        else:
-            vystup.append((trener.ID_trenera, cele_meno, "Žiadny kurz"))
-    return render_template("treneri.html", treneri=vystup)
+    return render_template("treneri.html", treneri=treneri)
+
 
 @app.route('/miesta')
 def zobraz_miesta():
     miesta = Miesto.query.all()
-    vystup = "<h2>Zoznam miest:</h2>"
-    for miesto in miesta:
-        vystup += f"<p>{miesto.Nazov_miesta}</p>"
-    vystup += '<br><a href="/"><button type="button">Späť</button></a>'
-    return vystup
+    return render_template("miesta.html", miesta=miesta)
 
-@app.route('/kapacita')
-def zobraz_kapacitu():
-    kurzy = Kurz.query.with_entities(Kurz.Nazov_kurzu, Kurz.Max_pocet_ucastnikov).all()
-    vystup = "<h2>Kapacity kurzov:</h2>"
-    for kurz in kurzy:
-        vystup += f"<p>{kurz.Nazov_kurzu} - Kapacita: {kurz.Max_pocet_ucastnikov}</p>"
-    vystup += '<br><a href="/"><button type="button">Späť</button></a>'
-    return vystup
+
+@app.route('/kapacity')
+def zobraz_kapacity():
+    kapacity = Kapacita.query.all()
+    return render_template("kapacity.html", kapacity=kapacity)
+
 
 @app.route('/registracia', methods=['GET', 'POST'])
 def registracia():

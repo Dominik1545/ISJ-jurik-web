@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <title>Zoznam miest</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <h2>Zoznam miest:</h2>
+    <ul>
+        {% for miesto in miesta %}
+            <li>{{ miesto.Nazov_miesta }} - {{ miesto.Adresa }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('index') }}"><button>Späť</button></a>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="sk">
 <head>
     <meta charset="UTF-8">
     <title>Zoznam trénerov</title>
@@ -7,10 +7,24 @@
 </head>
 <body>
     <h2>Zoznam trénerov a kurzov:</h2>
-    {% for trener in treneri %}
-        <p>{{ trener[1] }} - {{ trener[2] }}</p>
-    {% endfor %}
-    <br>
-    <a href="/"><button type="button">Späť</button></a>
+    <hr>
+
+    <ul>
+        {% for trener in treneri %}
+            <li>
+                <strong>{{ trener.Meno }} {{ trener.Priezvisko }}</strong><br>
+                {% if trener.kurzy %}
+                    {% for kurz in trener.kurzy %}
+                        - {{ kurz.Nazov_kurzu }}<br>
+                    {% endfor %}
+                {% else %}
+                    - Žiadny kurz
+                {% endif %}
+            </li>
+            <br>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('index') }}"><button>Späť</button></a>
 </body>
 </html>

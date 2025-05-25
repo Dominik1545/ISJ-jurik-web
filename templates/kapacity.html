@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <title>Zoznam kapacít</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <h2>Zoznam kapacít:</h2>
+    <ul>
+        {% for kapacita in kapacity %}
+            <li>ID: {{ kapacita.ID_kapacity }} – Počet miest: {{ kapacita.Pocet_miest }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('index') }}"><button>Späť</button></a>
+</body>
+</html>
