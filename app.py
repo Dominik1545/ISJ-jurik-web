@@ -3,8 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 import hashlib
 import os
 
-app = Flask(__name__, instance_relative_config=True)
+from flask import g, session
+from i18n import TRANSLATIONS, SUPPORTED
 
+app = Flask(__name__, instance_relative_config=True)
+app.secret_key = "tajny_kluc"
 os.makedirs(app.instance_path, exist_ok=True)
 
 
@@ -13,6 +16,17 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}".replace("\\", "/"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
+@app.before_request
+def set_lang():
+    lang = request.args.get("lang")
+    if lang not in SUPPORTED:
+        lang = session.get("lang","sk")
+    session["lang"] = lang
+    g.t = TRANSLATIONS[lang]
+
+@app.context_processor
+def inject_translations():
+    return dict(t=g . t)
 
 class Trener(db.Model):
     __tablename__ = "Treneri"
@@ -81,9 +95,12 @@ def zobraz_miesta():
 
 
 @app.route('/kapacity')
-def zobraz_kapacity():
-    kapacity = Kapacita.query.all()
-    return render_template("kapacity.html", kapacity=kapacity)
+@app.route('/kapacita')
+def vypis_kapacity():
+    kurzy = Kurz.query.with_entities(Kurz.Nazov_kurzu, Kurz.Max_pocet_ucastnikov).filter(Kurz.Nazov_kurzu.like('P%')).all()
+    return render_template("kapacity.html", kapacity=kurzy)
+
+
 
 
 @app.route('/registracia', methods=['GET', 'POST'])
